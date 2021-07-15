@@ -1,0 +1,47 @@
+@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="GrashultTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
+            OnClick="@((e) => DrawerToggle())" />
+        <MudSpacer />
+        <MudAvatar Variant="Variant.Filled" Color="Color.Secondary">KK</MudAvatar>
+    </MudAppBar>
+    <MudDrawer class="red lighten-4" @bind-Open="@_drawerOpen">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6" class="px-4">Menu</MudText>
+        </MudDrawerHeader>
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer Fixed="true">
+            <MudPaper Class="pa-4 mt-2 white" Elevation="0">
+                @Body
+            </MudPaper>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = false;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    MudTheme GrashultTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Primary = Colors.Red.Default,
+            Secondary = Colors.Green.Default,
+            Background = Colors.Grey.Lighten4,
+            AppbarBackground = Colors.Red.Darken2
+        }
+    };
+}
