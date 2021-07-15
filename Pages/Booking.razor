@@ -3,40 +3,71 @@
 @inject BookingService BookingService
 
 <MudText Class="mb-3" Typo="Typo.h3">Booking</MudText>
-<MudGrid>
-    <MudItem xs="12" m="6">
-        <MudButtonGroup Color="Color.Primary" Variant="Variant.Filled">
-            <MudButton>Kommandantboligen</MudButton>
-            <MudButton>Laden</MudButton>
-        </MudButtonGroup>
-    </MudItem>
-</MudGrid>
-<MudTable Items="@weeks" Class="my-4">
-    <HeaderContent>
-        <MudTh>#</MudTh>
-        <MudTh>Ma</MudTh>
-        <MudTh>Ti</MudTh>
-        <MudTh>On</MudTh>
-        <MudTh>To</MudTh>
-        <MudTh>Fr</MudTh>
-        <MudTh>Lø</MudTh>
-        <MudTh>Sø</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="#" HideSmall="true" Class="grey lighten-4">U: @context.WeekNumber</MudTd>
-        @foreach (BookingDay day in context.BookingDays)
-        {
-            <MudTd DataLabel="@day.Date.ToString("ddd")" Class="@(day.IsBooked ? "red lighten-4": "")">
-                @day.Date.ToString("dd")
-                @if (day.IsBooked)
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+    <MudTabPanel Text="Kommandantboligen">
+        <MudTable Items="@weeks" Class="my-4">
+            <HeaderContent>
+                <MudTh>#</MudTh>
+                <MudTh>Ma</MudTh>
+                <MudTh>Ti</MudTh>
+                <MudTh>On</MudTh>
+                <MudTh>To</MudTh>
+                <MudTh>Fr</MudTh>
+                <MudTh>Lø</MudTh>
+                <MudTh>Sø</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="#" HideSmall="true" Class="grey lighten-4">U: @context.WeekNumber</MudTd>
+                @foreach (BookingDay day in context.BookingDays)
                 {
-                    <text>:@day.Account</text>
+                    <MudTd DataLabel="@day.Date.ToString("ddd")" Class="@(day.IsBooked ? "red lighten-4": "")">
+                        @day.Date.ToString("dd")
+                        @if (day.IsBooked)
+                        {
+                            <text>:@day.Account</text>
+                        }
+                    </MudTd>
                 }
-            </MudTd>
-        }
-    </RowTemplate>
-</MudTable>
+            </RowTemplate>
+        </MudTable>
+    </MudTabPanel>
+    <MudTabPanel Text="Laden">
+        <MudTable Items="@barnWeeks" Class="my-4">
+            <HeaderContent>
+                <MudTh>#</MudTh>
+                <MudTh>Ma</MudTh>
+                <MudTh>Ti</MudTh>
+                <MudTh>On</MudTh>
+                <MudTh>To</MudTh>
+                <MudTh>Fr</MudTh>
+                <MudTh>Lø</MudTh>
+                <MudTh>Sø</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="#" HideSmall="true" Class="grey lighten-4">U: @context.WeekNumber</MudTd>
+                @foreach (BookingDay day in context.BookingDays)
+                {
+                    <MudTd DataLabel="@day.Date.ToString("ddd")" Class="@(day.IsBooked ? "red lighten-4": "")">
+                        @day.Date.ToString("dd")
+                        @if (day.IsBooked)
+                        {
+                            <text>:@day.Account</text>
+                        }
+                    </MudTd>
+                }
+            </RowTemplate>
+        </MudTable>
+    </MudTabPanel>
+</MudTabs>
 
+@* <MudGrid>
+    <MudItem xs="12" m="6">
+    <MudButtonGroup Color="Color.Primary" Variant="Variant.Filled">
+    <MudButton>Kommandantboligen</MudButton>
+    <MudButton>Laden</MudButton>
+    </MudButtonGroup>
+    </MudItem>
+    </MudGrid> *@
 @* <MudGrid>
     <MudItem xs="12" md="6">
     <MudDatePicker Label="Vælg måned" OpenTo="OpenTo.Month" @bind-Date="currentStartDate" DateFormat="MMMM" />
@@ -45,10 +76,13 @@
 
 @code {
     private List<BookingWeek> weeks;
+    private List<BookingWeek> barnWeeks;
     DateTime? currentStartDate = DateTime.Today;
 
     protected override async Task OnInitializedAsync()
     {
-        weeks = await BookingService.GetBookingsAsync();
+        weeks = await BookingService.GetBookingsAsync("comm");
+        barnWeeks = await BookingService.GetBookingsAsync("barn");
+
     }
 }

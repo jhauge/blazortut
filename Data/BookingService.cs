@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlazorTut.Data
@@ -88,9 +89,15 @@ namespace BlazorTut.Data
             },
         };
 
-        public Task<List<BookingWeek>> GetBookingsAsync()
+        public Task<List<BookingWeek>> GetBookingsAsync(string place)
         {
-            return Task.FromResult(weeks);
+            if (place == "comm") return Task.FromResult(weeks);
+            List<BookingWeek> barnWeeks = weeks.ToList();
+            barnWeeks[0].BookingDays[4].IsBooked = false;
+            barnWeeks[0].BookingDays[5].IsBooked = false;
+            barnWeeks[0].BookingDays[6].IsBooked = false;
+            barnWeeks[1].BookingDays[0].IsBooked = false;
+            return Task.FromResult(barnWeeks);
         }
 
     }
