@@ -3,9 +3,9 @@
 @inject BookingService BookingService
 
 <MudText Class="mb-3" Typo="Typo.h3">Booking</MudText>
-<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="">
     <MudTabPanel Text="Kommandantboligen">
-        <MudTable Items="@weeks" Class="my-4">
+        <MudTable Items="@weeks" Class="mt-4">
             <HeaderContent>
                 <MudTh>#</MudTh>
                 <MudTh>Ma</MudTh>
@@ -32,7 +32,7 @@
         </MudTable>
     </MudTabPanel>
     <MudTabPanel Text="Laden">
-        <MudTable Items="@barnWeeks" Class="my-4">
+        <MudTable Items="@barnWeeks" Class="mt-4">
             <HeaderContent>
                 <MudTh>#</MudTh>
                 <MudTh>Ma</MudTh>
