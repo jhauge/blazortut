@@ -9,13 +9,15 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
             OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
-        <MudAvatar Variant="Variant.Filled" Class="red darken-4">KK</MudAvatar>
+        <MudAvatar Variant="Variant.Filled" Class="">KK</MudAvatar>
     </MudAppBar>
-    <MudDrawer class="red lighten-4" @bind-Open="@_drawerOpen">
+    <MudDrawer @bind-Open="@_drawerOpen">
         <MudDrawerHeader>
             <MudText Typo="Typo.h6" class="px-4">Menu</MudText>
         </MudDrawerHeader>
-        <NavMenu />
+        <MudDrawerContainer>
+            <NavMenu />
+        </MudDrawerContainer>
     </MudDrawer>
     <MudMainContent>
         <MudContainer Fixed="true">
@@ -39,9 +41,10 @@
         Palette = new Palette()
         {
             Primary = Colors.Red.Default,
-            Secondary = Colors.Green.Default,
-            Background = Colors.Grey.Lighten4,
-            AppbarBackground = Colors.Red.Darken2
+            Secondary = Colors.BlueGrey.Default,
+            Background = Colors.BlueGrey.Lighten4,
+            AppbarBackground = Colors.Red.Darken2,
+            DrawerBackground = Colors.BlueGrey.Lighten5
         }
     };
 }
