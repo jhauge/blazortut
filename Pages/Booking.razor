@@ -4,12 +4,12 @@
 
 
 <MudText Class="mb-3" Typo="Typo.h3">Booking</MudText>
-<MudButtonGroup Color="Color.Primary" Variant="Variant.Filled" Class="my-4 d-flex">
+<MudButtonGroup Color="Color.Tertiary" Variant="Variant.Filled" Class="my-4 d-flex">
     <MudIconButton Icon="@Icons.Material.Rounded.ArrowBackIos" Title="Forrige måned" aria-label="Tilbage" />
     <MudButton FullWidth="true">Juli 2021</MudButton>
     <MudIconButton Icon="@Icons.Material.Rounded.ArrowForwardIos" Title="Næste måned" aria-label="Frem" />
 </MudButtonGroup>
-<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="">
+<MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true">
     <MudTabPanel Text="Kommandantboligen">
         <MudTable Items="@weeks" Class="mt-4">
             <HeaderContent>
@@ -66,7 +66,7 @@
     </MudTabPanel>
 </MudTabs>
 <MudItem Class="d-flex justify-end">
-    <MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Class="my-4" aria-label="Opret booking" />
+    <MudFab Color="Color.Tertiary" Icon="@Icons.Material.Filled.Add" Class="my-4" aria-label="Opret booking" />
 </MudItem>
 
 @code {
