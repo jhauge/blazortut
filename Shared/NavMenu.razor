@@ -1,6 +1,13 @@
 ﻿<MudNavMenu>
     <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Home">Forside</MudNavLink>
-    <MudNavLink Href="/booking" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.CalendarToday">Booking
-    </MudNavLink>
+    <MudNavGroup title="Bookings" Icon="@Icons.Material.Outlined.CalendarToday">
+        <MudNavLink Href="/booking" Match="NavLinkMatch.All">Kalender</MudNavLink>
+        <MudNavLink Href="/mybookings" Match="NavLinkMatch.All">Mine bookinger</MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Title="Sider" Icon="@Icons.Material.Outlined.MenuBook">
+        <MudNavLink Href="/diary" Match="NavLinkMatch.All">Dagbog</MudNavLink>
+        <MudNavLink Href="/contactlist" Match="NavLinkMatch.All">Kontaktliste</MudNavLink>
+        <MudNavLink Href="/myaccount" Match="NavLinkMatch.All">Min konto</MudNavLink>
+    </MudNavGroup>
     <MudNavLink Href="/regler" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.HelpCenter">Regler</MudNavLink>
 </MudNavMenu>
