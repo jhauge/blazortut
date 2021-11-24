@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlazorTut.Data
@@ -170,10 +169,27 @@ namespace BlazorTut.Data
                 }
             },
         };
+
+        private List<Booking> bookings = new()
+        {
+            new Booking { Accountname = "JM", StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(3) },
+            new Booking { Accountname = "JM", StartDate = DateTime.Now.AddDays(20), EndDate = DateTime.Now.AddDays(24), PlaceId = "comm", Place = "Kommandantboligen" }
+        };
+
         public Task<List<BookingWeek>> GetBookingsAsync(string place)
         {
             if (place == "comm") return Task.FromResult(weeks);
             return Task.FromResult(barnweeks);
+        }
+
+        public Task<List<Booking>> GetUserBookingsAsync(int userId = 0)
+        {
+            return Task.FromResult(bookings);
+        }
+
+        public Task DeleteBookingAsync(Guid bookingId)
+        {
+            return Task.CompletedTask;
         }
 
     }

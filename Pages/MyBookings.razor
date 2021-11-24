@@ -1,0 +1,43 @@
+@page "/mybookings"
+
+@inject BookingService BookingService
+
+<MudText class="mb-3" Typo="Typo.h3">Mine bookinger</MudText>
+
+<MudList Dense="false">
+    @foreach (BlazorTut.Data.Booking booking in bookings)
+    {
+        <MudListItem>
+            <MudText Typo="Typo.overline">@booking.StartDate.ToString("dd.MM.yyyy") -
+                @booking.EndDate.ToString("dd.MM.yyyy")
+                @booking.Place.ToUpper()
+                <MudButtonGroup Color="Color.Tertiary" Variant="Variant.Outlined">
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Error"
+                    OnClickAsync="EditBookingAsync(booking.Id)" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClickAsync="DeleteBookingAsync(booking.Id)" />
+                </MudButtonGroup>
+            </MudText>
+        </MudListItem>
+    }
+
+</MudList>
+@code {
+    private List<Data.Booking> bookings;
+
+    protected override async Task OnInitializedAsync()
+    {
+        bookings = await BookingService.GetUserBookingsAsync();
+    }
+
+    private async Task DeleteBookingAsync(Guid bookingId)
+    {
+        await BookingService.DeleteBookingAsync(bookingId);
+        bookings = await BookingService.GetUserBookingsAsync();
+    }
+
+    private async Task EditBookingAsync(Guid bookingId)
+    {
+        await Task.Run(() => throw new NotImplementedException());
+        //await NavigationService.NavigateToAsync("/booking/edit/" + bookingId);
+    }
+}

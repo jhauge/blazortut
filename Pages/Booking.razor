@@ -1,7 +1,7 @@
 @page "/booking"
 
+@inject IDialogService DialogService;
 @inject BookingService BookingService
-
 
 <MudText Class="mb-3" Typo="Typo.h3">Booking</MudText>
 <MudButtonGroup Color="Color.Tertiary" Variant="Variant.Filled" Class="my-4 d-flex">
@@ -66,18 +66,29 @@
     </MudTabPanel>
 </MudTabs>
 <MudItem Class="d-flex justify-end">
-    <MudFab Color="Color.Tertiary" Icon="@Icons.Material.Filled.Add" Class="my-4" aria-label="Opret booking" />
+    <MudFab Color="Color.Tertiary" Icon="@Icons.Material.Filled.Add" Class="my-4" aria-label="Opret booking"
+        OnClick="CreateBooking" />
 </MudItem>
 
 @code {
     private List<BookingWeek> weeks;
     private List<BookingWeek> barnWeeks;
     DateTime? currentStartDate = DateTime.Today;
+    DialogOptions createDialogOptions = new DialogOptions()
+    {
+        MaxWidth = MaxWidth.Medium,
+        FullWidth = true,
+        Position = DialogPosition.TopCenter
+    };
 
     protected override async Task OnInitializedAsync()
     {
         weeks = await BookingService.GetBookingsAsync("comm");
         barnWeeks = await BookingService.GetBookingsAsync("barn");
+    }
 
+    private void CreateBooking()
+    {
+        DialogService.Show<Dialogs.CreateBookingDialog>("Opret booking", createDialogOptions);
     }
 }

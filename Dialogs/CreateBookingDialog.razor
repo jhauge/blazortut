@@ -1,0 +1,21 @@
+<MudDialog>
+    <DialogContent>
+        Add a new booking
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton OnClick="AddBooking" Color="Color.Primary">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    private void Cancel() => MudDialog.Close();
+
+    private void AddBooking()
+    {
+        // Do something
+        MudDialog.Close();
+    }
+}
