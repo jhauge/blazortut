@@ -1,15 +1,42 @@
 <MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h5">
+            Opret booking
+        </MudText>
+    </TitleContent>
     <DialogContent>
-        Add a new booking
+        <MudGrid>
+            <MudItem xs="12" lg="3" class="pt-16">
+                <MudRadioGroup @bind-SelectedOption="@Place">
+                    <MudRadio Option="1">
+                        Kommandantboligen
+                    </MudRadio>
+                    <MudRadio Option="2">
+                        Laden
+                    </MudRadio>
+                    <MudRadio Option="3">
+                        Hele gården
+                    </MudRadio>
+                </MudRadioGroup>
+            </MudItem>
+            <MudItem xs="12" lg="9">
+                <MudDateRangePicker xs="12" PickerVariant="PickerVariant.Static" Elevation="0" DisableToolbar="true"
+                    ShowWeekNumbers="true" />
+            </MudItem>
+        </MudGrid>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton OnClick="AddBooking" Color="Color.Primary">Ok</MudButton>
+        <MudItem class="pa-4">
+            <MudButton class="px-6 mr-2" OnClick="Cancel">Annuller</MudButton>
+            <MudButton OnClick="AddBooking" class="px-6" Color="Color.Primary" Variant="Variant.Filled">Ok</MudButton>
+        </MudItem>
     </DialogActions>
 </MudDialog>
 
 @code {
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    public int Place { get; set; } = 1;
 
     private void Cancel() => MudDialog.Close();
 
