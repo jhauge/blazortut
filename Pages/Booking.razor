@@ -1,7 +1,10 @@
+@using MudBlazor.Services
+
 @page "/booking"
 
 @inject IDialogService DialogService;
-@inject BookingService BookingService
+@inject BookingService BookingService;
+@inject IBreakpointService BreakpointService;
 
 <MudText Class="mb-3" Typo="Typo.h3">Booking</MudText>
 <MudButtonGroup Color="Color.Tertiary" Variant="Variant.Filled" Class="my-4 d-flex">
@@ -73,13 +76,10 @@
 @code {
     private List<BookingWeek> weeks;
     private List<BookingWeek> barnWeeks;
+    private bool isSmall = false;
+    DialogOptions dialogOptions;
+
     DateTime? currentStartDate = DateTime.Today;
-    DialogOptions createDialogOptions = new DialogOptions()
-    {
-        MaxWidth = MaxWidth.Medium,
-        FullWidth = true,
-        Position = DialogPosition.TopCenter
-    };
 
     protected override async Task OnInitializedAsync()
     {
@@ -87,8 +87,22 @@
         barnWeeks = await BookingService.GetBookingsAsync("barn");
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            isSmall = await BreakpointService.IsMediaSize(Breakpoint.SmAndDown);
+            dialogOptions = new DialogOptions()
+            {
+                FullScreen = isSmall,
+                MaxWidth = MaxWidth.Medium,
+                Position = DialogPosition.TopCenter
+            };
+        }
+    }
+
     private void CreateBooking()
     {
-        DialogService.Show<Dialogs.CreateBookingDialog>("Opret booking", createDialogOptions);
+        DialogService.Show<Dialogs.CreateBookingDialog>("Opret booking", dialogOptions);
     }
 }
